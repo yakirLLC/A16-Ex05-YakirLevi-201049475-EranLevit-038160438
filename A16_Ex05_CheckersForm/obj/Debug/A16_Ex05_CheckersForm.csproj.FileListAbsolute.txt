@@ -1,0 +1,7 @@
+E:\yakir\Studies\C#\A16 Ex05 YakirLevi 201049475 EranLevit 038160438\A16_Ex05_CheckersForm\obj\Debug\A16_Ex05_CheckersForm.csprojResolveAssemblyReference.cache
+E:\yakir\Studies\C#\A16 Ex05 YakirLevi 201049475 EranLevit 038160438\A16_Ex05_CheckersForm\bin\Debug\A16_Ex05_CheckersForm.exe
+E:\yakir\Studies\C#\A16 Ex05 YakirLevi 201049475 EranLevit 038160438\A16_Ex05_CheckersForm\bin\Debug\A16_Ex05_CheckersForm.pdb
+E:\yakir\Studies\C#\A16 Ex05 YakirLevi 201049475 EranLevit 038160438\A16_Ex05_CheckersForm\bin\Debug\A16_Ex05_CheckersLogic.dll
+E:\yakir\Studies\C#\A16 Ex05 YakirLevi 201049475 EranLevit 038160438\A16_Ex05_CheckersForm\bin\Debug\A16_Ex05_CheckersLogic.pdb
+E:\yakir\Studies\C#\A16 Ex05 YakirLevi 201049475 EranLevit 038160438\A16_Ex05_CheckersForm\obj\Debug\A16_Ex05_CheckersForm.exe
+E:\yakir\Studies\C#\A16 Ex05 YakirLevi 201049475 EranLevit 038160438\A16_Ex05_CheckersForm\obj\Debug\A16_Ex05_CheckersForm.pdb
