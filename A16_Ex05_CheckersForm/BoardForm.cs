@@ -30,15 +30,15 @@ namespace A16_Ex05_CheckersForm
             this.StartPosition = FormStartPosition.CenterScreen;
             if (m_GameProperties.BoardSize == 6)
             {
-                this.Size = new Size(527, 580);
+                this.Size = new Size(528, 580);
             }
             else if (m_GameProperties.BoardSize == 8)
             {
-                this.Size = new Size(685, 745);
+                this.Size = new Size(686, 746);
             }
             else
             {
-                this.Size = new Size(847, 900);
+                this.Size = new Size(848, 900);
             }
 
             InitControls();
@@ -57,9 +57,9 @@ namespace A16_Ex05_CheckersForm
             m_LabelPlayer1.Text = m_GameProperties.Player1.Name + ":";
             m_LabelPlayer1.AutoSize = true;
             m_LabelPlayer1.Top = 8;
-            m_LabelPlayer1.Left = this.ClientSize.Width / 4 - this.ClientSize.Width / 8;
+            m_LabelPlayer1.Left = this.ClientSize.Width / 4 - m_LabelPlayer1.Width / 2;
             m_LabelPlayer1.ForeColor = Color.Green;
-            m_LabelPlayer1.Font = new Font(m_LabelPlayer1.Font.Name, 12, FontStyle.Bold); 
+            m_LabelPlayer1.Font = new Font(m_LabelPlayer1.Font.Name, 12, FontStyle.Bold);
 
             m_LabelPlayer1Score.Text = m_GameProperties.Player1.Score.ToString();
             m_LabelPlayer1Score.AutoSize = true;
@@ -71,14 +71,14 @@ namespace A16_Ex05_CheckersForm
             m_LabelPlayer2.Text = m_GameProperties.Player2.Name + ":";
             m_LabelPlayer2.AutoSize = true;
             m_LabelPlayer2.Top = 8;
-            m_LabelPlayer2.Left = this.ClientSize.Width / 2 + this.ClientSize.Width / 4 - this.ClientSize.Width / 8;
+            m_LabelPlayer2.Left = this.ClientSize.Width / 2 + this.ClientSize.Width / 4 - m_LabelPlayer2.Width / 2;
             m_LabelPlayer2.ForeColor = Color.Blue;
             m_LabelPlayer2.Font = new Font(m_LabelPlayer2.Font.Name, 12, FontStyle.Bold); 
 
             m_LabelPlayer2Score.Text = m_GameProperties.Player2.Score.ToString();
             m_LabelPlayer2Score.AutoSize = true;
             m_LabelPlayer2Score.Top = 8;
-            m_LabelPlayer2Score.Left = m_LabelPlayer2.Right;
+            m_LabelPlayer2Score.Left = m_LabelPlayer2.Right + 10;
             m_LabelPlayer2Score.ForeColor = Color.Blue;
             m_LabelPlayer2Score.Font = new Font(m_LabelPlayer2Score.Font.Name, 12, FontStyle.Bold); 
 
@@ -161,6 +161,33 @@ namespace A16_Ex05_CheckersForm
             return (m_Gameplay.AnyAdditionalMove(m_Board, i_Button.i, i_Button.j, Math.Abs(i_Button.i - m_SourceButton.i)));
         }
 
+        private bool IsComputerTurn()
+        {
+            return !m_Gameplay.Player1Turn && m_GameProperties.Player2.IsComputer;
+        }
+
+        private void MakeComputerMove()
+        {
+            Move move;
+            int iSource;
+            int jSource;
+            int iDestination;
+            int jDestination;
+
+            do
+            {
+                move = m_Gameplay.GetComputerMove(m_Board);
+                iSource = move.IPreviousMove;
+                jSource = move.JPreviousMove;
+                iDestination = move.INextMove;
+                jDestination = move.JNextMove;
+                m_SourceButton = m_Buttons[iSource, jSource];
+                m_Gameplay.Move(ref m_Board, iSource, jSource, iDestination, jDestination);
+                UpdateButtonMatrixStatus();
+            }
+            while (CheckAdditionalMoves(m_Buttons[iDestination, jDestination]));
+        }
+
         private void buttonFirstClick_Click(object sender, EventArgs e)
         {
             //Button button = sender as Button;
@@ -183,6 +210,12 @@ namespace A16_Ex05_CheckersForm
                     {
                         m_Gameplay.SwitchTurn();
                         ShowCurrentPlayerTurn();
+                        if (IsComputerTurn())
+                        {
+                            MakeComputerMove();
+                            m_Gameplay.SwitchTurn();
+                            ShowCurrentPlayerTurn();
+                        }
                     }
                 }
             }

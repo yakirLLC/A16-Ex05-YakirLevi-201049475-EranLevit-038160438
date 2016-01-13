@@ -2,3 +2,4 @@ E:\yakir\Studies\C#\A16 Ex05 YakirLevi 201049475 EranLevit 038160438\A16_Ex05_Ch
 E:\yakir\Studies\C#\A16 Ex05 YakirLevi 201049475 EranLevit 038160438\A16_Ex05_CheckersLogic\bin\Debug\A16_Ex05_CheckersLogic.pdb
 E:\yakir\Studies\C#\A16 Ex05 YakirLevi 201049475 EranLevit 038160438\A16_Ex05_CheckersLogic\obj\Debug\A16_Ex05_CheckersLogic.dll
 E:\yakir\Studies\C#\A16 Ex05 YakirLevi 201049475 EranLevit 038160438\A16_Ex05_CheckersLogic\obj\Debug\A16_Ex05_CheckersLogic.pdb
+E:\yakir\Studies\C#\A16 Ex05 YakirLevi 201049475 EranLevit 038160438\A16_Ex05_CheckersLogic\obj\Debug\A16_Ex05_CheckersLogic.csprojResolveAssemblyReference.cache
