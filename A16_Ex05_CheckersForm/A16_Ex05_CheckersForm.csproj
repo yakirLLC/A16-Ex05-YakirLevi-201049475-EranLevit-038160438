@@ -44,6 +44,10 @@
     <Compile Include="BoardForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ButtonLocationInMatrixEventArgs.cs" />
+    <Compile Include="CheckersButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="StartForm.cs">
       <SubType>Form</SubType>

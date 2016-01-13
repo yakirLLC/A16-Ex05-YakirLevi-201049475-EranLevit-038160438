@@ -790,6 +790,11 @@ namespace A16_Ex05_CheckersLogic
             return (i_Gap == 2) && (IsRightJumpDiagonalPossible(i_Board, i_ISource, i_JSource) || IsLeftJumpDiagonalPossible(i_Board, i_ISource, i_JSource));
         }
 
+        public bool IsPlayerTroop(int i_PlayerNumber, string i_Troop)
+        {
+            return (i_PlayerNumber == 1 && (i_Troop.Equals("X") || i_Troop.Equals("K"))) || (i_PlayerNumber == 2 && (i_Troop.Equals("O") || i_Troop.Equals("U")));
+        }
+
         public string GetLosingTroop(string i_WinningTroop)
         {
             string losingTroop = "X";
