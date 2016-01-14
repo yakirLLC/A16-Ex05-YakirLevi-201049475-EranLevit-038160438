@@ -118,90 +118,117 @@ namespace A16_Ex05_CheckersLogic
             return isTargetSquerePermitted;
         }
 
-        public bool IsInputJumpDiagonalLegit(Board i_Board, int i_ISource, int i_JSource, int i_IDestination, int i_JDestination)
+        public bool CheckRightSide(Board i_Board, int i_ISource, int i_JSource, int i_IDestination, int i_JDestination)
         {
             string sourceTroop, destinationTroop, followingSpot;
+            bool isRightSideLegit = false;
+
+            if (i_Board.GetBoard[i_ISource, i_JSource].Equals("X"))
+            {
+                if (i_IDestination == i_ISource - 2 && i_JDestination == i_JSource + 2)
+                {
+                    isRightSideLegit = true;
+                }
+            }
+            else if (i_Board.GetBoard[i_ISource, i_JSource].Equals("O"))
+            {
+                if (i_IDestination == i_ISource + 2 && i_JDestination == i_JSource - 2)
+                {
+                    isRightSideLegit = true;
+                }
+            }
+            else if (IsKing(i_Board, i_ISource, i_JSource))
+            {
+                sourceTroop = i_Board.GetBoard[i_ISource, i_JSource];
+                followingSpot = i_Board.GetBoard[i_IDestination, i_JDestination];
+                if (i_ISource - 2 >= 0 && i_JSource + 2 < i_Board.BoardSize)
+                {
+                    destinationTroop = i_Board.GetBoard[i_ISource - 1, i_JSource + 1];
+                    if (i_IDestination == i_ISource - 2 && i_JDestination == i_JSource + 2 && CheckIfTroopEatIsLegit(sourceTroop, destinationTroop, followingSpot))
+                    {
+                        isRightSideLegit = true;
+                    }
+                }
+
+                if (i_ISource + 2 < i_Board.BoardSize && i_JSource - 2 >= 0 && !isRightSideLegit)
+                {
+                    destinationTroop = i_Board.GetBoard[i_ISource + 1, i_JSource - 1];
+                    if (i_IDestination == i_ISource + 2 && i_JDestination == i_JSource - 2 && CheckIfTroopEatIsLegit(sourceTroop, destinationTroop, followingSpot))
+                    {
+                        isRightSideLegit = true;
+                    }
+                }
+            }
+
+            return isRightSideLegit;
+        }
+
+        public bool CheckLeftSide(Board i_Board, int i_ISource, int i_JSource, int i_IDestination, int i_JDestination)
+        {
+            string sourceTroop, destinationTroop, followingSpot;
+            bool isLeftSideLegit = false;
+
+            if (i_Board.GetBoard[i_ISource, i_JSource].Equals("X"))
+            {
+                if (i_IDestination == i_ISource - 2 && i_JDestination == i_JSource - 2)
+                {
+                    isLeftSideLegit = true;
+                }
+            }
+            else if (i_Board.GetBoard[i_ISource, i_JSource].Equals("O"))
+            {
+                if (i_IDestination == i_ISource + 2 && i_JDestination == i_JSource + 2)
+                {
+                    isLeftSideLegit = true;
+                }
+            }
+            else if (IsKing(i_Board, i_ISource, i_JSource))
+            {
+                sourceTroop = i_Board.GetBoard[i_ISource, i_JSource];
+                followingSpot = i_Board.GetBoard[i_IDestination, i_JDestination];
+                if (i_ISource - 2 >= 0 && i_JSource - 2 >= 0)
+                {
+                    destinationTroop = i_Board.GetBoard[i_ISource - 1, i_JSource - 1];
+                    if (i_IDestination == i_ISource - 2 && i_JDestination == i_JSource - 2 && CheckIfTroopEatIsLegit(sourceTroop, destinationTroop, followingSpot))
+                    {
+                        isLeftSideLegit = true;
+                    }
+                }
+
+                if (i_ISource + 2 < i_Board.BoardSize && i_JSource + 2 < i_Board.BoardSize && !isLeftSideLegit)
+                {
+                    destinationTroop = i_Board.GetBoard[i_ISource + 1, i_JSource + 1];
+                    if (i_IDestination == i_ISource + 2 && i_JDestination == i_JSource + 2 && CheckIfTroopEatIsLegit(sourceTroop, destinationTroop, followingSpot))
+                    {
+                        isLeftSideLegit = true;
+                    }
+                }
+            }
+
+            return isLeftSideLegit;
+        }
+
+        public bool IsInputJumpDiagonalLegit(Board i_Board, int i_ISource, int i_JSource, int i_IDestination, int i_JDestination)
+        {
             bool isInputJumpDiagonalLegit = false;
             bool isRightDiagonalPossible = IsRightJumpDiagonalPossible(i_Board, i_ISource, i_JSource);
             bool isLeftDiagonalPossible = IsLeftJumpDiagonalPossible(i_Board, i_ISource, i_JSource);
 
-            if (isRightDiagonalPossible)
+            if (isRightDiagonalPossible && isLeftDiagonalPossible)
             {
-                if (i_Board.GetBoard[i_ISource, i_JSource].Equals("X"))
+                isInputJumpDiagonalLegit = CheckRightSide(i_Board, i_ISource, i_JSource, i_IDestination, i_JDestination);
+                if (!isInputJumpDiagonalLegit)
                 {
-                    if (i_IDestination == i_ISource - 2 && i_JDestination == i_JSource + 2)
-                    {
-                        isInputJumpDiagonalLegit = true;
-                    }
+                    isInputJumpDiagonalLegit = CheckLeftSide(i_Board, i_ISource, i_JSource, i_IDestination, i_JDestination);
                 }
-                else if (i_Board.GetBoard[i_ISource, i_JSource].Equals("O"))
-                {
-                    if (i_IDestination == i_ISource + 2 && i_JDestination == i_JSource - 2)
-                    {
-                        isInputJumpDiagonalLegit = true;
-                    }
-                }
-                else if (IsKing(i_Board, i_ISource, i_JSource))
-                {
-                    sourceTroop = i_Board.GetBoard[i_ISource, i_JSource];
-                    followingSpot = i_Board.GetBoard[i_IDestination, i_JDestination];
-                    if (i_ISource - 2 >= 0 && i_JSource + 2 < i_Board.BoardSize)
-                    {
-                        destinationTroop = i_Board.GetBoard[i_ISource - 1, i_JSource + 1];
-                        if (i_IDestination == i_ISource - 2 && i_JDestination == i_JSource + 2 && CheckIfTroopEatIsLegit(sourceTroop, destinationTroop, followingSpot))
-                        {
-                            isInputJumpDiagonalLegit = true;
-                        }
-                    }
-                    
-                    if (i_ISource + 2 < i_Board.BoardSize && i_JSource - 2 >= 0 && !isInputJumpDiagonalLegit)
-                    {
-                        destinationTroop = i_Board.GetBoard[i_ISource + 1, i_JSource - 1];
-                        if (i_IDestination == i_ISource + 2 && i_JDestination == i_JSource - 2 && CheckIfTroopEatIsLegit(sourceTroop, destinationTroop, followingSpot))
-                        {
-                            isInputJumpDiagonalLegit = true;
-                        }
-                    }
-                }
+            }
+            else if (isRightDiagonalPossible)
+            {
+                isInputJumpDiagonalLegit = CheckRightSide(i_Board, i_ISource, i_JSource, i_IDestination, i_JDestination);
             }
             else if (isLeftDiagonalPossible)
             {
-                if (i_Board.GetBoard[i_ISource, i_JSource].Equals("X"))
-                {
-                    if (i_IDestination == i_ISource - 2 && i_JDestination == i_JSource - 2)
-                    {
-                        isInputJumpDiagonalLegit = true;
-                    }
-                }
-                else if (i_Board.GetBoard[i_ISource, i_JSource].Equals("O"))
-                {
-                    if (i_IDestination == i_ISource + 2 && i_JDestination == i_JSource + 2)
-                    {
-                        isInputJumpDiagonalLegit = true;
-                    }
-                }
-                else if (IsKing(i_Board, i_ISource, i_JSource))
-                {
-                    sourceTroop = i_Board.GetBoard[i_ISource, i_JSource];
-                    followingSpot = i_Board.GetBoard[i_IDestination, i_JDestination];
-                    if (i_ISource - 2 >= 0 && i_JSource - 2 >= 0)
-                    {
-                        destinationTroop = i_Board.GetBoard[i_ISource - 1, i_JSource - 1];
-                        if (i_IDestination == i_ISource - 2 && i_JDestination == i_JSource - 2 && CheckIfTroopEatIsLegit(sourceTroop, destinationTroop, followingSpot))
-                        {
-                            isInputJumpDiagonalLegit = true;
-                        }
-                    }
-                    
-                    if (i_ISource + 2 < i_Board.BoardSize && i_JSource + 2 < i_Board.BoardSize && !isInputJumpDiagonalLegit)
-                    {
-                        destinationTroop = i_Board.GetBoard[i_ISource + 1, i_JSource + 1];
-                        if (i_IDestination == i_ISource + 2 && i_JDestination == i_JSource + 2 && CheckIfTroopEatIsLegit(sourceTroop, destinationTroop, followingSpot))
-                        {
-                            isInputJumpDiagonalLegit = true;
-                        }
-                    }
-                }
+                isInputJumpDiagonalLegit = CheckLeftSide(i_Board, i_ISource, i_JSource, i_IDestination, i_JDestination);
             }
 
             return isInputJumpDiagonalLegit;
