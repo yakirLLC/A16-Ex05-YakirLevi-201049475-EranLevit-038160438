@@ -153,7 +153,8 @@ namespace A16_Ex05_CheckersLogic
                             isInputJumpDiagonalLegit = true;
                         }
                     }
-                    else if (i_ISource + 2 < i_Board.BoardSize && i_JSource - 2 >= 0)
+                    
+                    if (i_ISource + 2 < i_Board.BoardSize && i_JSource - 2 >= 0 && !isInputJumpDiagonalLegit)
                     {
                         destinationTroop = i_Board.GetBoard[i_ISource + 1, i_JSource - 1];
                         if (i_IDestination == i_ISource + 2 && i_JDestination == i_JSource - 2 && CheckIfTroopEatIsLegit(sourceTroop, destinationTroop, followingSpot))
@@ -191,7 +192,8 @@ namespace A16_Ex05_CheckersLogic
                             isInputJumpDiagonalLegit = true;
                         }
                     }
-                    else if (i_ISource + 2 < i_Board.BoardSize && i_JSource + 2 < i_Board.BoardSize)
+                    
+                    if (i_ISource + 2 < i_Board.BoardSize && i_JSource + 2 < i_Board.BoardSize && !isInputJumpDiagonalLegit)
                     {
                         destinationTroop = i_Board.GetBoard[i_ISource + 1, i_JSource + 1];
                         if (i_IDestination == i_ISource + 2 && i_JDestination == i_JSource + 2 && CheckIfTroopEatIsLegit(sourceTroop, destinationTroop, followingSpot))
@@ -337,8 +339,7 @@ namespace A16_Ex05_CheckersLogic
                 {
                     isLeftStepDiagonalPossible = false;
                 }
-
-                if (i_JSource == i_Board.BoardSize - 1 || i_ISource == i_Board.BoardSize - 1)
+                else if (i_JSource == i_Board.BoardSize - 1 || i_ISource == i_Board.BoardSize - 1)
                 {
                     if (!i_Board.GetBoard[i_ISource - 1, i_JSource - 1].Equals(" "))
                     {
@@ -417,8 +418,6 @@ namespace A16_Ex05_CheckersLogic
         public bool HaveJumpedIfNeeded(Board i_Board, int i_ISource, int i_JSource, int i_IDestination, int i_JDestination)
         {
             bool haveJumpedIfNeeded = true;
-            bool isRightDiagonalPossible = IsRightJumpDiagonalPossible(i_Board, i_ISource, i_JSource);
-            bool isLeftDiagonalPossible = IsLeftJumpDiagonalPossible(i_Board, i_ISource, i_JSource);
 
             if (!IsInputJumpDiagonalLegit(i_Board, i_ISource, i_JSource, i_IDestination, i_JDestination))
             {
@@ -697,12 +696,12 @@ namespace A16_Ex05_CheckersLogic
                 }
                 else
                 {
-                    destinationTroop = i_Board.GetBoard[i_ISource - 1, i_JSource - 1];
-                    followingSpot = i_Board.GetBoard[i_ISource - 2, i_JSource - 2];
+                    destinationTroop = i_Board.GetBoard[i_ISource - 1, i_JSource + 1];
+                    followingSpot = i_Board.GetBoard[i_ISource - 2, i_JSource + 2];
                     if (!CheckIfTroopEatIsLegit(sourceTroop, destinationTroop, followingSpot))
                     {
-                        destinationTroop = i_Board.GetBoard[i_ISource + 1, i_JSource + 1];
-                        followingSpot = i_Board.GetBoard[i_ISource + 2, i_JSource + 2];
+                        destinationTroop = i_Board.GetBoard[i_ISource + 1, i_JSource - 1];
+                        followingSpot = i_Board.GetBoard[i_ISource + 2, i_JSource - 2];
                         result = CheckIfTroopEatIsLegit(sourceTroop, destinationTroop, followingSpot);
                     }
                 }
@@ -934,5 +933,4 @@ namespace A16_Ex05_CheckersLogic
             return IsAnyOtherJumpsAvailable(i_Board) || IsAnyOtherStepAvailable(i_Board, out troop);
         }
     }
-
 }

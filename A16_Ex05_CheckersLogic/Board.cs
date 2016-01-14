@@ -94,5 +94,4 @@ namespace A16_Ex05_CheckersLogic
             IntializeBoard();
         }
     }
-
 }

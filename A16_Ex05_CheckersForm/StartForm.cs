@@ -26,8 +26,7 @@ namespace A16_Ex05_CheckersForm
         public StartForm()
         {
             this.Text = "Game Settings";
-            //this.Text = string.Format("{0}X{1}", this.Top, this.Left);
-            this.Size = new Size(270,210);
+            this.Size = new Size(270, 210);
             this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
             this.StartPosition = FormStartPosition.CenterScreen;
         }
@@ -41,26 +40,6 @@ namespace A16_Ex05_CheckersForm
         {
             get { return m_Player2; }
         }
-
-        //public string Player1Name
-        //{
-        //    get { return m_TextBoxPlayer1.Text; }
-        //}
-
-        //public string Player2Name
-        //{
-        //    get 
-        //    {
-        //        string name = "Computer";
-
-        //        if (m_CheckBoxPlayer2.Checked)
-        //        {
-        //            name = m_TextBoxPlayer2.Text;
-        //        }
-
-        //        return name;
-        //    }
-        //}
 
         public int BoardSize
         {
@@ -109,7 +88,7 @@ namespace A16_Ex05_CheckersForm
             m_LabelPlayer1.Top = m_LabelPlayers.Bottom + 4;
             m_LabelPlayer1.Left = m_LabelPlayers.Left + 8;
 
-            m_TextBoxPlayer1.Top = (m_LabelPlayer1.Top + m_LabelPlayer1.Height / 2) - m_LabelPlayer1.Height / 2;
+            m_TextBoxPlayer1.Top = (m_LabelPlayer1.Top + (m_LabelPlayer1.Height / 2)) - (m_LabelPlayer1.Height / 2);
 
             m_CheckBoxPlayer2.Left = m_LabelPlayer1.Left;
             m_CheckBoxPlayer2.AutoSize = true;
@@ -119,19 +98,21 @@ namespace A16_Ex05_CheckersForm
             m_LabelPlayer2.Top = m_LabelPlayer1.Bottom + 10;
             m_LabelPlayer2.Left = m_CheckBoxPlayer2.Left + 16;
 
-            m_TextBoxPlayer2.Top = (m_LabelPlayer2.Top + m_LabelPlayer2.Height / 2) - m_LabelPlayer2.Height / 2;
+            m_TextBoxPlayer2.Top = (m_LabelPlayer2.Top + (m_LabelPlayer2.Height / 2)) - (m_LabelPlayer2.Height / 2);
             m_TextBoxPlayer2.Left = m_LabelPlayer2.Right - 30;
 
             m_TextBoxPlayer2.Text = "[Computer]";
             m_TextBoxPlayer2.Enabled = false;
             m_TextBoxPlayer1.Left = m_TextBoxPlayer2.Left;
-            m_CheckBoxPlayer2.Top = (m_LabelPlayer2.Top + m_LabelPlayer2.Height / 2) - m_LabelPlayer2.Height / 2 + 2;
+            m_CheckBoxPlayer2.Top = (m_LabelPlayer2.Top + (m_LabelPlayer2.Height / 2)) - (m_LabelPlayer2.Height / 2) + 2;
 
             m_ButtonDone.Text = "Done";
             m_ButtonDone.Left = this.ClientSize.Width - m_ButtonDone.Width - 8;
             m_ButtonDone.Top = this.ClientSize.Height - m_ButtonDone.Height - 8;
 
-            this.Controls.AddRange(new Control[] { m_LabelBoardSize, 
+            this.Controls.AddRange(new Control[] 
+                                                   { 
+                                                   m_LabelBoardSize, 
                                                    m_RadioButton6x6, 
                                                    m_RadioButton8x8, 
                                                    m_RadioButton10x10, 
@@ -141,7 +122,8 @@ namespace A16_Ex05_CheckersForm
                                                    m_CheckBoxPlayer2, 
                                                    m_LabelPlayer2, 
                                                    m_TextBoxPlayer2, 
-                                                   m_ButtonDone});
+                                                   m_ButtonDone
+                                                   });
             m_ButtonDone.Click += new EventHandler(m_ButtonDone_Click);
             m_CheckBoxPlayer2.Click += new EventHandler(m_CheckBoxPlayer2_Click);
             m_RadioButton6x6.Click += new EventHandler(m_RadioButton_Click);
@@ -174,7 +156,7 @@ namespace A16_Ex05_CheckersForm
         {
             if (m_CheckBoxPlayer2.Checked)
             {
-                m_TextBoxPlayer2.Text = "";
+                m_TextBoxPlayer2.Text = string.Empty;
             }
             else
             {

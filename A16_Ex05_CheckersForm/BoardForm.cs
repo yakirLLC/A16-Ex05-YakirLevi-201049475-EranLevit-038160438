@@ -14,9 +14,7 @@ namespace A16_Ex05_CheckersForm
         private Label m_LabelPlayer2 = new Label();
         private Label m_LabelPlayer1Score = new Label();
         private Label m_LabelPlayer2Score = new Label();
-        //private Button m_SourceButton = new Button();
         private CheckersButton m_SourceButton;
-        //private Button[,] m_Buttons;
         private CheckersButton[,] m_Buttons;
         private Board m_Board;
         private Gameplay m_Gameplay = new Gameplay();
@@ -44,12 +42,6 @@ namespace A16_Ex05_CheckersForm
             InitControls();
         }
 
-        //protected override void OnLoad(EventArgs e)
-        //{
-        //    base.OnLoad(e);
-        //    InitControls();
-        //}
-
         private void InitControls()
         {
             int j, buttonTop = 50, buttonLeft = 20, currentButtonLeft = buttonLeft;
@@ -57,7 +49,7 @@ namespace A16_Ex05_CheckersForm
             m_LabelPlayer1.Text = m_GameProperties.Player1.Name + ":";
             m_LabelPlayer1.AutoSize = true;
             m_LabelPlayer1.Top = 8;
-            m_LabelPlayer1.Left = this.ClientSize.Width / 4 - m_LabelPlayer1.Width / 2;
+            m_LabelPlayer1.Left = (this.ClientSize.Width / 4) - (m_LabelPlayer1.Width / 2);
             m_LabelPlayer1.ForeColor = Color.Green;
             m_LabelPlayer1.Font = new Font(m_LabelPlayer1.Font.Name, 12, FontStyle.Bold);
 
@@ -66,23 +58,22 @@ namespace A16_Ex05_CheckersForm
             m_LabelPlayer1Score.Top = 8;
             m_LabelPlayer1Score.Left = m_LabelPlayer1.Right;
             m_LabelPlayer1Score.ForeColor = Color.Blue;
-            m_LabelPlayer1Score.Font = new Font(m_LabelPlayer1Score.Font.Name, 12, FontStyle.Bold); 
+            m_LabelPlayer1Score.Font = new Font(m_LabelPlayer1Score.Font.Name, 12, FontStyle.Bold);
 
             m_LabelPlayer2.Text = m_GameProperties.Player2.Name + ":";
             m_LabelPlayer2.AutoSize = true;
             m_LabelPlayer2.Top = 8;
-            m_LabelPlayer2.Left = this.ClientSize.Width / 2 + this.ClientSize.Width / 4 - m_LabelPlayer2.Width / 2;
+            m_LabelPlayer2.Left = (this.ClientSize.Width / 2) + (this.ClientSize.Width / 4) - (m_LabelPlayer2.Width / 2);
             m_LabelPlayer2.ForeColor = Color.Blue;
-            m_LabelPlayer2.Font = new Font(m_LabelPlayer2.Font.Name, 12, FontStyle.Bold); 
+            m_LabelPlayer2.Font = new Font(m_LabelPlayer2.Font.Name, 12, FontStyle.Bold);
 
             m_LabelPlayer2Score.Text = m_GameProperties.Player2.Score.ToString();
             m_LabelPlayer2Score.AutoSize = true;
             m_LabelPlayer2Score.Top = 8;
-            m_LabelPlayer2Score.Left = m_LabelPlayer2.Right + 10;
+            m_LabelPlayer2Score.Left = m_LabelPlayer2.Right + 5;
             m_LabelPlayer2Score.ForeColor = Color.Blue;
             m_LabelPlayer2Score.Font = new Font(m_LabelPlayer2Score.Font.Name, 12, FontStyle.Bold); 
 
-            //m_Buttons = new Button[m_GameProperties.BoardSize, m_GameProperties.BoardSize];
             m_Buttons = new CheckersButton[m_GameProperties.BoardSize, m_GameProperties.BoardSize];
             m_Board = new Board(m_GameProperties.BoardSize);
 
@@ -90,7 +81,6 @@ namespace A16_Ex05_CheckersForm
             {
                 for (j = 0; j < m_GameProperties.BoardSize; j++)
                 {
-                    //m_Buttons[i, j] = new Button();
                     m_Buttons[i, j] = new CheckersButton(m_GameProperties.BoardSize);
                     m_Buttons[i, j].Size = new Size(80, 80);
                     m_Buttons[i, j].Text = m_Board.GetBoard[i, j];
@@ -119,7 +109,7 @@ namespace A16_Ex05_CheckersForm
                 buttonTop = m_Buttons[i, j - 1].Bottom;
             }
 
-            this.Controls.AddRange(new Control[] { m_LabelPlayer1, m_LabelPlayer2, m_LabelPlayer1Score, m_LabelPlayer2Score });
+            this.Controls.AddRange(new Control[] { m_LabelPlayer1, m_LabelPlayer1Score, m_LabelPlayer2, m_LabelPlayer2Score });
         }
 
         private bool IsValidClick(CheckersButton i_Button)
@@ -158,7 +148,7 @@ namespace A16_Ex05_CheckersForm
 
         private bool CheckAdditionalMoves(CheckersButton i_Button)
         {
-            return (m_Gameplay.AnyAdditionalMove(m_Board, i_Button.i, i_Button.j, Math.Abs(i_Button.i - m_SourceButton.i)));
+            return m_Gameplay.AnyAdditionalMove(m_Board, i_Button.i, i_Button.j, Math.Abs(i_Button.i - m_SourceButton.i));
         }
 
         private bool IsComputerTurn()
@@ -190,8 +180,8 @@ namespace A16_Ex05_CheckersForm
 
         private void buttonFirstClick_Click(object sender, EventArgs e)
         {
-            //Button button = sender as Button;
             CheckersButton button = sender as CheckersButton;
+            bool gameOver;
 
             if (!m_Clicked)
             {
@@ -199,6 +189,17 @@ namespace A16_Ex05_CheckersForm
                 {
                     m_SourceButton = button;
                     MarkPressedButton(button);
+                }
+                else
+                {
+                    if (button.Text.Equals(" "))
+                    {
+                        MessageBox.Show("Empty Space!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Enemy's Troop!");
+                    }
                 }
             }
             else
@@ -210,15 +211,53 @@ namespace A16_Ex05_CheckersForm
                     {
                         m_Gameplay.SwitchTurn();
                         ShowCurrentPlayerTurn();
-                        if (IsComputerTurn())
+                        gameOver = CheckIfGameOver();
+                        if (IsComputerTurn() && !gameOver)
                         {
                             MakeComputerMove();
                             m_Gameplay.SwitchTurn();
                             ShowCurrentPlayerTurn();
+                            gameOver = CheckIfGameOver();
                         }
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Invalid Move!");
+                }
             }
+        }
+
+        private bool CheckIfGameOver()
+        {
+            string winningTroop;
+            bool gameOver = true;
+
+            if (m_Gameplay.IsGameOver(m_Board, false, out winningTroop))
+            {
+                if (winningTroop.Equals("X"))
+                {
+                    m_GameProperties.Player1.Score = m_Gameplay.CalculateScore(m_Board, winningTroop, false);
+                    DialogResult = MessageBox.Show(string.Format("{0} Won!\nAnotherRound?", m_GameProperties.Player1.Name), "Damka", MessageBoxButtons.YesNo);
+                }
+                else if (winningTroop.Equals("O"))
+                {
+                    m_GameProperties.Player2.Score = m_Gameplay.CalculateScore(m_Board, winningTroop, false);
+                    DialogResult = MessageBox.Show(string.Format("{0} Won!\nAnotherRound?", m_GameProperties.Player2.Name), "Damka", MessageBoxButtons.YesNo);
+                }
+
+                this.Close();
+            }
+            else if (m_Gameplay.IsDraw(m_Board))
+            {
+                DialogResult = MessageBox.Show(string.Format("Tie!\nAnotherRound?", m_GameProperties.Player2.Name), "Damka", MessageBoxButtons.YesNo);
+            }
+            else
+            {
+                gameOver = false;
+            }
+
+            return gameOver;
         }
 
         private void UpdateButtonMatrixStatus()
@@ -242,7 +281,6 @@ namespace A16_Ex05_CheckersForm
 
         private void buttonSecondClick_Click(object sender, EventArgs e)
         {
-            //Button button = sender as Button;
             CheckersButton button = sender as CheckersButton;
 
             if (m_Clicked)

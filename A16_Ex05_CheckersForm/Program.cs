@@ -10,14 +10,18 @@ namespace A16_Ex05_CheckersForm
     {
         public static void Main()
         {
-            StartForm sf = new StartForm();
-            BoardForm bf;
+            StartForm startForm = new StartForm();
+            BoardForm boadForm;
 
-            sf.ShowDialog();
-            if (sf.DialogResult == DialogResult.OK)
+            startForm.ShowDialog();
+            if (startForm.DialogResult == DialogResult.OK)
             {
-                bf = new BoardForm(sf);
-                bf.ShowDialog();
+                do
+                {
+                    boadForm = new BoardForm(startForm);
+                    boadForm.ShowDialog();
+                }
+                while(boadForm.DialogResult == DialogResult.Yes);
             }
         }
     }

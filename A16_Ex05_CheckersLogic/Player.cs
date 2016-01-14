@@ -53,11 +53,7 @@ namespace A16_Ex05_CheckersLogic
 
         public bool IsComputer
         {
-            get
-            {
-                return m_IsComputer;
-            }
+            get { return m_IsComputer; }
         }
     }
-
 }
