@@ -5,6 +5,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A16_Ex05_CheckersLogic", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A16_Ex05_CheckersForm", "A16_Ex05_CheckersForm\A16_Ex05_CheckersForm.csproj", "{008C83E3-9330-4A53-9D3D-98B590A01C20}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E2C751B2-AF57-451B-94AD-C61BAFBA1304}"
+	ProjectSection(SolutionItems) = preProject
+		ExerciseCheckingReport.txt = ExerciseCheckingReport.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

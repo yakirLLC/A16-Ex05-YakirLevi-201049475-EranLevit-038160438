@@ -29,6 +29,7 @@ namespace A16_Ex05_CheckersForm
             this.Size = new Size(270, 210);
             this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
             this.StartPosition = FormStartPosition.CenterScreen;
+            InitControls();
         }
 
         public Player Player1
@@ -51,12 +52,6 @@ namespace A16_Ex05_CheckersForm
             get { return m_CheckBoxPlayer2.Checked; }
         }
 
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            InitControls();
-        }
-
         private void InitControls()
         {
             m_LabelBoardSize.Text = "Board Size:";
@@ -65,17 +60,17 @@ namespace A16_Ex05_CheckersForm
 
             m_RadioButton6x6.Text = "6 x 6";
             m_RadioButton6x6.Checked = true;
-            m_RadioButton6x6.Top = m_LabelBoardSize.Bottom - 4;
+            m_RadioButton6x6.Top = m_LabelBoardSize.Bottom;
             m_RadioButton6x6.Left = m_LabelBoardSize.Left + 8;
             m_RadioButton6x6.AutoSize = true;
 
             m_RadioButton8x8.Text = "8 x 8";
-            m_RadioButton8x8.Top = m_LabelBoardSize.Bottom - 4;
+            m_RadioButton8x8.Top = m_LabelBoardSize.Bottom;
             m_RadioButton8x8.Left = m_RadioButton6x6.Right - 40;
             m_RadioButton8x8.AutoSize = true;
 
             m_RadioButton10x10.Text = "10 x 10";
-            m_RadioButton10x10.Top = m_LabelBoardSize.Bottom - 4;
+            m_RadioButton10x10.Top = m_LabelBoardSize.Bottom;
             m_RadioButton10x10.Left = m_RadioButton8x8.Right - 40;
             m_RadioButton10x10.AutoSize = true;
 
@@ -107,8 +102,8 @@ namespace A16_Ex05_CheckersForm
             m_CheckBoxPlayer2.Top = (m_LabelPlayer2.Top + (m_LabelPlayer2.Height / 2)) - (m_LabelPlayer2.Height / 2) + 2;
 
             m_ButtonDone.Text = "Done";
-            m_ButtonDone.Left = this.ClientSize.Width - m_ButtonDone.Width - 8;
-            m_ButtonDone.Top = this.ClientSize.Height - m_ButtonDone.Height - 8;
+            m_ButtonDone.Left = this.ClientSize.Width - m_ButtonDone.Width;
+            m_ButtonDone.Top = this.ClientSize.Height - m_ButtonDone.Height;
 
             this.Controls.AddRange(new Control[] 
                                                    { 

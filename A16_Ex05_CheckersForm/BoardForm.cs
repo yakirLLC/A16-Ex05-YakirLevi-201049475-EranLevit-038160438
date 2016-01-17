@@ -198,7 +198,7 @@ namespace A16_Ex05_CheckersForm
                     }
                     else
                     {
-                        MessageBox.Show("Enemy's Troop!");
+                        MessageBox.Show("Opponent's Troop!");
                     }
                 }
             }
@@ -238,12 +238,12 @@ namespace A16_Ex05_CheckersForm
                 if (winningTroop.Equals("X"))
                 {
                     m_GameProperties.Player1.Score = m_Gameplay.CalculateScore(m_Board, winningTroop, false);
-                    DialogResult = MessageBox.Show(string.Format("{0} Won!\nAnotherRound?", m_GameProperties.Player1.Name), "Damka", MessageBoxButtons.YesNo);
+                    DialogResult = MessageBox.Show(string.Format("{0} Won!\nAnother Round?", m_GameProperties.Player1.Name), "Damka", MessageBoxButtons.YesNo);
                 }
                 else if (winningTroop.Equals("O"))
                 {
                     m_GameProperties.Player2.Score = m_Gameplay.CalculateScore(m_Board, winningTroop, false);
-                    DialogResult = MessageBox.Show(string.Format("{0} Won!\nAnotherRound?", m_GameProperties.Player2.Name), "Damka", MessageBoxButtons.YesNo);
+                    DialogResult = MessageBox.Show(string.Format("{0} Won!\nAnother Round?", m_GameProperties.Player2.Name), "Damka", MessageBoxButtons.YesNo);
                 }
 
                 this.Close();
